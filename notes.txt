@@ -1,0 +1,6 @@
+Labs/hw to reference:
+hw4 - https://codelabs.cs.pdx.edu/labs/C06.5_hw4/index.html?index=..%2F..cs430#1
+6.3g - https://codelabs.cs.pdx.edu/labs/C06.3g_cloudrun_gb/index.html?index=..%2F..cs430#3
+7.3g - https://codelabs.cs.pdx.edu/labs/C07.3g_apis_slack/index.html?index=..%2F..cs430#5
+
+Final info - https://codelabs.cs.pdx.edu/labs/C08.5_final/index.html?index=..%2F..cs430#1
