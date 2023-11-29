@@ -1,13 +1,21 @@
-
+import sys, getopt
 import flask, os
-from flask.views import MethodView
-from index import Index
+from flask import render_template
 
-app = flask.Flask(__name__)       # our Flask app
-
-app.add_url_rule('/',view_func=Index.as_view('index'),
-                 methods=["GET"])
+app = flask.Flask(__name__)
 
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=int(os.environ.get('PORT',5000)))
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
+if __name__ == "__main__":
+    args = sys.argv[1:]
+    if "-d" in args or "--Debug" in args:
+        app.config['TEMPLATES_AUTO_RELOAD'] = True
+        app.config['DEBUG'] = True
+        app.jinja_env.auto_reload = True
+        
+            
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
