@@ -1,4 +1,29 @@
 {% extends "layout.html" %} {% block content %}
 <h2>Games Look Up!</h2>
 <p>Applesauce is dangerous if you aren't careful while consuming it!</p>
-{% endblock %}
+<form action="{{url_for('find_game')}}" method="post">
+  <p><input type="text" name="game_name" /></p>
+  <p>
+    <input type="submit" value="Go!" onClick="runRequestToREST(game_name)" />
+  </p>
+</form>
+
+<script>
+  function runRequestToREST(game_name) {
+    $.ajax({
+      type: "POST",
+      url: "/find_game",
+      contentType: "application/json",
+      data: JSON.stringify({
+        game_name: game_name,
+      }),
+      success: function (data) {
+        return data;
+      },
+      error: function () {
+        window.alert("bad!");
+      },
+    });
+  }
+</script>
+{% endblock content%}
