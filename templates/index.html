@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block content %}
 <h2>Games Look Up!</h2>
 <p>Applesauce is dangerous if you aren't careful while consuming it!</p>
-<form action="{{url_for('find_game')}}" method="post" id="game_search_form">
+<form action="{{url_for('find_game')}}" method="post" id="game_search_form" autocomplete="off">
   <p><input type="text" name="game_name" id="game_name_input"/></p>
   <p>
     <input type="submit" value="Go!" onClick="runRequestToREST($('#game_name_input').val())" />
