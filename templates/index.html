@@ -1,15 +1,16 @@
 {% extends "layout.html" %} {% block content %}
 <h2>Games Look Up!</h2>
 <p>Applesauce is dangerous if you aren't careful while consuming it!</p>
-<form action="{{url_for('find_game')}}" method="post">
-  <p><input type="text" name="game_name" /></p>
+<form action="{{url_for('find_game')}}" method="post" id="game_search_form">
+  <p><input type="text" name="game_name" id="game_name_input"/></p>
   <p>
-    <input type="submit" value="Go!" onClick="runRequestToREST(game_name)" />
+    <input type="submit" value="Go!" onClick="runRequestToREST($('#game_name_input').val())" />
   </p>
 </form>
 
 <script>
   function runRequestToREST(game_name) {
+    game_name_2 = $('#game_name_input').val()
     $.ajax({
       type: "POST",
       url: "/find_game",
@@ -18,12 +19,16 @@
         game_name: game_name,
       }),
       success: function (data) {
-        return data;
+        return window.alert("good!");
       },
       error: function () {
         window.alert("bad!");
       },
     });
   }
+
+  $("#game_search_form").submit(function (event) {
+        event.preventDefault();
+    });
 </script>
 {% endblock content%}

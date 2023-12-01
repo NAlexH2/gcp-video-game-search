@@ -13,7 +13,7 @@ def index():
 @app.route("/find_game", methods=["POST"])
 def find_game():
     game_name = request.json["game_name"]
-    print("Itworkedorsomethingoiadmaisomdoim! ", game_name)
+    print("Testing the 'REST' API ", game_name)
     return "ok", 200
 
 
