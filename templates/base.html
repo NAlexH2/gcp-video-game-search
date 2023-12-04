@@ -1,8 +1,19 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='twcss.css') }}"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+    />
     <title>{% block title %}{% endblock %}Games Information Finder</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     {% endblock %}
