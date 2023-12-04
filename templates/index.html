@@ -36,46 +36,50 @@
   <li class="text-[blanchedalmond]">
     <h3 class="font-bold text-xl text-center my-4">{{game["name"]}}</h3>
     <div class="m-4 flex">
-      <div class="pl-4">
+      <div class="ml-4 max-w-[260px]">
         <p class="font-bold text-lg underline text-[blanchedalmond]">
           Release Date:
         </p>
-        <p class="pl-6 text-[bisque]">{{game["first_release_date"]}}</p>
+        <p class="ml-2 text-[bisque]">{{game["first_release_date"]}}</p>
         <p class="font-bold text-lg underline text-[blanchedalmond]">
           Critics Score:
         </p>
         {% if game["aggregated_rating"] %}
-        <p class="pl-6 text-[bisque]">
+        <p class="ml-2 text-[bisque]">
           {{game["aggregated_rating"]}} out of 100
         </p>
         {% else %}
-        <p class="font-bold text-lg text-purple-400 pl-6">
-          Critic reviews missing from IGDB
-        </p>
+        <div class="max-w-[150px]">
+          <p class="font-bold text-lg text-purple-400 pl-2">
+            Critic reviews missing from IGDB
+          </p>
+        </div>
         {% endif %}
         <p class="font-bold text-lg underline text-[blanchedalmond]">
           Available Platforms:
         </p>
         {% for platform in game["platforms"] %}
-        <p class="pl-6 text-[bisque]">{{platform["name"]}}</p>
+        <p class="ml-2 text-[bisque]">{{platform["name"]}}</p>
         {% endfor %}
         <p class="font-bold text-lg underline text-[blanchedalmond] mb-2">
           ESRB Rating:
         </p>
         {% if game["age_ratings"] and game["age_ratings"]|length > 0 %} {% for
         age_rating in game["age_ratings"] %}
-        <img class="pl-6" src='{{age_rating["rating"]}}' />
+        <img class="ml-2" src='{{age_rating["rating"]}}' />
         {% endfor %} {% else %}
-        <p class="font-bold text-lg text-purple-400 pl-6">
-          Rating missing from IGDB
-        </p>
+        <div class="max-w-[150px]">
+          <p class="font-bold text-lg text-purple-400 ml-2">
+            ESRB rating missing from IGDB
+          </p>
+        </div>
         {% endif %}
       </div>
       <div class="ml-10 flex flex-col">
         <p class="font-bold text-lg underline text-[blanchedalmond] mb-2">
           Cover Art:
         </p>
-        <img class="pl-6 w-auto max-h-96" src='{{game["cover"]["url"]}}' />
+        <img class="pl-2 w-auto max-h-96" src='{{game["cover"]["url"]}}' />
       </div>
     </div>
   </li>
