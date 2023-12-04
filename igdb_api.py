@@ -1,5 +1,5 @@
 import os, json
-from flask import render_template, url_for
+from flask import Request, render_template, url_for
 from requests import post
 from igdb.wrapper import IGDBWrapper
 from datetime import datetime
@@ -45,16 +45,17 @@ def get_igdb_auth_token():
 
 
 # Route to find the game the user is searching for, return several results.
-def find_game(game_name: str):
+def find_game(req: Request):
     IDGB_AUTH_TOKEN = get_igdb_auth_token()
+    game_name = req.form["game_name"]
     wrapper: IGDBWrapper = IGDBWrapper(IGDB_CLIENT_KEY, IDGB_AUTH_TOKEN)
     games_raw = wrapper.api_request(
         "games",
         'search "'
         + game_name
         + """\";
-        f id, name, first_release_date, age_ratings.rating, 
-        age_ratings.category, cover.url, platforms.name;
+        f id, name, first_release_date, aggregated_rating, platforms.name, age_ratings.category, 
+        age_ratings.rating, url, cover.url;
         limit 20; 
         where first_release_date != null & age_ratings != null;
         """,
@@ -69,7 +70,11 @@ def find_game(game_name: str):
         game["age_ratings"] = list(
             filter(lambda rating: rating["category"] == 1, game["age_ratings"])
         )
-        if len(game["age_ratings"]) > 0:
+        if "aggregated_rating" in game:
+            game["aggregated_rating"] = int(game["aggregated_rating"])
+        if "cover" in game and len(game["cover"]) > 0:
+            game["cover"]["url"] = game["cover"]["url"].replace("t_thumb", "t_cover_big_2x")
+        if "age_ratings" in game and len(game["age_ratings"]) > 0:
             game["age_ratings"][0]["rating"] = rating_img_producer(game["age_ratings"][0]["rating"])
 
     return render_template("index.html", games=games)
