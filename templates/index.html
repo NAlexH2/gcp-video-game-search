@@ -6,7 +6,7 @@
     you provide, in the order of which they were released.<br /><br />
     <b><u>NOTE:</u> The search IS NOT PERFECT</b>, and is still a work in
     progress. You might have games listed that do not relate to your search at
-    all.
+    all appear in your results.
   </p>
   <form action="/" method="POST" id="game_search_form" autocomplete="off">
     <div class="text-3xl">Game name:</div>
@@ -29,9 +29,9 @@
   </form>
 </div>
 
-<ul class="flex flex-col pl-3 min-w-[50px] max-w-md">
+<ul class="flex flex-col mx-auto px-20 pt-5 max-w-6xl">
   {%if games %}
-  <h1 class="text-4xl text-center pt-5 underline">IGDB Information:</h1>
+  <h1 class="text-4xl text-center pt-5 underline">Results</h1>
   {% for game in games %}
   <li class="text-[blanchedalmond]">
     <h3 class="font-bold text-xl text-center my-4">{{game["name"]}}</h3>
@@ -42,22 +42,40 @@
         </p>
         <p class="pl-6 text-[bisque]">{{game["first_release_date"]}}</p>
         <p class="font-bold text-lg underline text-[blanchedalmond]">
+          Critics Score:
+        </p>
+        {% if game["aggregated_rating"] %}
+        <p class="pl-6 text-[bisque]">
+          {{game["aggregated_rating"]}} out of 100
+        </p>
+        {% else %}
+        <p class="font-bold text-lg text-purple-400 pl-6">
+          Critic reviews missing from IGDB
+        </p>
+        {% endif %}
+        <p class="font-bold text-lg underline text-[blanchedalmond]">
           Available Platforms:
         </p>
         {% for platform in game["platforms"] %}
         <p class="pl-6 text-[bisque]">{{platform["name"]}}</p>
         {% endfor %}
         <p class="font-bold text-lg underline text-[blanchedalmond] mb-2">
-          Rating:
+          ESRB Rating:
         </p>
         {% if game["age_ratings"] and game["age_ratings"]|length > 0 %} {% for
         age_rating in game["age_ratings"] %}
-        <img src='{{age_rating["rating"]}}' />
+        <img class="pl-6" src='{{age_rating["rating"]}}' />
         {% endfor %} {% else %}
-        <p class="font-bold text-lg text-purple-400">
+        <p class="font-bold text-lg text-purple-400 pl-6">
           Rating missing from IGDB
         </p>
         {% endif %}
+      </div>
+      <div class="ml-10 flex flex-col">
+        <p class="font-bold text-lg underline text-[blanchedalmond] mb-2">
+          Cover Art:
+        </p>
+        <img class="pl-6 w-auto max-h-96" src='{{game["cover"]["url"]}}' />
       </div>
     </div>
   </li>
