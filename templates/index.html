@@ -1,45 +1,68 @@
 {% extends "base.html" %} {% block content %}
-<h2>Games Look Up!</h2>
-<p>Applesauce is dangerous if you aren't careful while consuming it!</p>
-<form
-  action="{{url_for('find_game')}}"
-  method="post"
-  id="game_search_form"
-  autocomplete="off"
->
- 
-  <p> Game name: <input type="text" name="game_name" id="game_name_input" /></p>
-  <p>
-    <input
-      type="submit"
-      value="Go!"
-      onClick="runRequestToREST($('#game_name_input').val())"
-    />
+<div class="heading w-auto">
+  <h2 class="my-5 text-6xl">Games Look Up!</h2>
+  <p class="mb-5 max-w-2xl px-4">
+    This website will display video games with a name as closely matched as the
+    you provide, in the order of which they were released.<br /><br />
+    <b><u>NOTE:</u> The search IS NOT PERFECT</b>, and is still a work in
+    progress. You might have games listed that do not relate to your search at
+    all.
   </p>
-</form>
+  <form action="/" method="POST" id="game_search_form" autocomplete="off">
+    <div class="text-3xl">Game name:</div>
+    <p>
+      <input
+        class="border-black border-2 rounded-md"
+        type="text"
+        name="game_name"
+        id="game_name"
+        required
+      />
+    </p>
+    <p>
+      <input
+        class="border-[bisque] border-2 bg-gray-800 rounded-lg px-5 py-1 border-solid"
+        type="submit"
+        value="Go!"
+      />
+    </p>
+  </form>
+</div>
 
-{# Here, use a script to get the data from the APIs asynchronously so the page
-doesn't reload. #}
-<script>
-  function runRequestToREST(game_name) {
-    $.ajax({
-      type: "POST",
-      url: "/find_game",
-      contentType: "application/json",
-      data: JSON.stringify({
-        game_name: game_name,
-      }),
-      success: function (data) {
-        return window.alert("good!");
-      },
-      error: function () {
-        window.alert("bad!");
-      },
-    });
-  }
-
-  $("#game_search_form").submit(function (event) {
-    event.preventDefault();
-  });
-</script>
+<ul class="flex flex-col pl-3 min-w-[50px] max-w-md">
+  {%if games %}
+  <h1 class="text-4xl text-center pt-5 underline">IGDB Information:</h1>
+  {% for game in games %}
+  <li class="text-[blanchedalmond]">
+    <h3 class="font-bold text-xl text-center my-4">{{game["name"]}}</h3>
+    <div class="m-4 flex">
+      <div class="pl-4">
+        <p class="font-bold text-lg underline text-[blanchedalmond]">
+          Release Date:
+        </p>
+        <p class="pl-6 text-[bisque]">{{game["first_release_date"]}}</p>
+        <p class="font-bold text-lg underline text-[blanchedalmond]">
+          Available Platforms:
+        </p>
+        {% for platform in game["platforms"] %}
+        <p class="pl-6 text-[bisque]">{{platform["name"]}}</p>
+        {% endfor %}
+        <p class="font-bold text-lg underline text-[blanchedalmond] mb-2">
+          Rating:
+        </p>
+        {% if game["age_ratings"] and game["age_ratings"]|length > 0 %} {% for
+        age_rating in game["age_ratings"] %}
+        <img src='{{age_rating["rating"]}}' />
+        {% endfor %} {% else %}
+        <p class="font-bold text-lg text-purple-400">
+          Rating missing from IGDB
+        </p>
+        {% endif %}
+      </div>
+    </div>
+  </li>
+  {% endfor %} {% else %}
+  <br />
+  {%endif%}
+</ul>
 {% endblock content%}
