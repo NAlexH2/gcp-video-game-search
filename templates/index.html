@@ -8,6 +8,7 @@
     progress. You might have games listed that do not relate to your search at
     all appear in your results.
   </p>
+  <p class="mb-5 max-w-2xl px-4">Results are sorted by release date.</p>
   <form action="/" method="POST" id="game_search_form" autocomplete="off">
     <div class="text-3xl">Game name:</div>
     <p>
@@ -16,9 +17,24 @@
         type="text"
         name="game_name"
         id="game_name"
+        maxlength="50"
         required
       />
     </p>
+    <label for="limit">Number of desired results:</label>
+    <select class="text-black text-center mb-4" id="limit" name="limit">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3" selected>3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+
     <p>
       <input
         class="border-[bisque] border-2 bg-gray-800 rounded-lg px-5 py-1 border-solid"
@@ -29,7 +45,7 @@
   </form>
 </div>
 
-<ul class="flex flex-col mx-auto px-20 pt-5 max-w-3xl">
+<ul class="flex flex-col mx-auto px-20 pt-5 max-w-3xl mb-8">
   {%if games %}
   <h1 class="text-4xl text-center pt-5 underline">Results</h1>
   {% for game in games %}
@@ -85,6 +101,7 @@
           alt='{{game["cover"]["alt_text"]}}'
           title='{{game["cover"]["alt_text"]}}'
         />
+      </div>
     </div>
   </li>
   {% endfor %} {% else %}
