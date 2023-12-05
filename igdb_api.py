@@ -4,6 +4,8 @@ from requests import post
 from igdb.wrapper import IGDBWrapper
 from datetime import datetime
 
+from gcp_vision_api import analyze_box_art
+
 IGDB_CLIENT_KEY = os.environ.get("IGDB_CLIENT_KEY")
 IGDB_SECRET_KEY = os.environ.get("IGDB_SECRET_KEY")
 IDGB_AUTH_TOKEN = ""
@@ -55,15 +57,14 @@ def find_game(req: Request):
         + game_name
         + """\";
         f id, name, first_release_date, aggregated_rating, platforms.name, age_ratings.category, 
-        age_ratings.rating, url, cover.url;
-        limit 20; 
+        age_ratings.rating, cover.url;
+        limit 5; 
         where first_release_date != null & age_ratings != null;
         """,
     )
 
     games = json.loads(games_raw)
     games = sorted(games, key=lambda x: x["first_release_date"])
-
     for game in games:
         dt_object = datetime.utcfromtimestamp(game["first_release_date"])
         game["first_release_date"] = dt_object.strftime("%m/%d/%Y")
@@ -74,7 +75,11 @@ def find_game(req: Request):
             game["aggregated_rating"] = int(game["aggregated_rating"])
         if "cover" in game and len(game["cover"]) > 0:
             game["cover"]["url"] = game["cover"]["url"].replace("t_thumb", "t_cover_big_2x")
+            game["cover"]["url"] = "https:" + game["cover"]["url"]
+            game["cover"]["alt_text"] = json.dumps(analyze_box_art(game["cover"]["url"]))
+            game["cover"]["alt_text"] = game["cover"]["alt_text"][1:-1]
+            
         if "age_ratings" in game and len(game["age_ratings"]) > 0:
             game["age_ratings"][0]["rating"] = rating_img_producer(game["age_ratings"][0]["rating"])
-
+        
     return render_template("index.html", games=games)
