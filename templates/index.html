@@ -29,7 +29,7 @@
   </form>
 </div>
 
-<ul class="flex flex-col mx-auto px-20 pt-5 max-w-6xl">
+<ul class="flex flex-col mx-auto px-20 pt-5 max-w-3xl">
   {%if games %}
   <h1 class="text-4xl text-center pt-5 underline">Results</h1>
   {% for game in games %}
@@ -79,8 +79,12 @@
         <p class="font-bold text-lg underline text-[blanchedalmond] mb-2">
           Cover Art:
         </p>
-        <img class="pl-2 w-auto max-h-96" src='{{game["cover"]["url"]}}' />
-      </div>
+        <img
+          class="pl-2 w-auto max-h-96"
+          src='{{game["cover"]["url"]}}'
+          alt='{{game["cover"]["alt_text"]}}'
+          title='{{game["cover"]["alt_text"]}}'
+        />
     </div>
   </li>
   {% endfor %} {% else %}
