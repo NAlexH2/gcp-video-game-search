@@ -1,4 +1,5 @@
 flask
 igdb-api-v4
 google-cloud-vision
+gunicorn
 requests
