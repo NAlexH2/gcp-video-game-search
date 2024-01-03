@@ -3,7 +3,7 @@
 This website was put together for a final project during Fall term at Portland State University, and was started the 28th of November 2023 and completed on the 6th of December 2023.
 
 #### A quick note
-The commit history, unfortunately, doesn't reflect the correct commit history on the original repository. I wanted to separate the class work from the final project and wound up with a odd looking commit history when transferring it over
+The commit history, unfortunately, doesn't reflect the correct commit history on the original repository. I wanted to separate the class work from the final project and wound up with a odd looking commit history when transferring it over.
 
 ## Goal of the Project
 The purpose behind the project was to experience developing and deploying a web application on the Google Cloud Platform using Python, and (as a graduate student requirement) two different API endpoints and incorporate them in some fashion.
