@@ -9,3 +9,7 @@ igdb api - https://api-docs.igdb.com/?python#getting-started
 
 OpenCritic api - https://rapidapi.com/opencritic-opencritic-default/api/opencritic-api
     related - https://app.swaggerhub.com/apis-docs/OpenCritic/OpenCritic-API/1.0.0#/
+
+How to deploy:
+
+gcloud run deploy final --image gcr.io/... --set-env-vars APP_ID=e5c9382,API_KEY=cae2635...343
