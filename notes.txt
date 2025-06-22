@@ -12,4 +12,4 @@ OpenCritic api - https://rapidapi.com/opencritic-opencritic-default/api/opencrit
 
 How to deploy:
 
-gcloud run deploy final --image gcr.io/... --set-env-vars APP_ID=e5c9382,API_KEY=cae2635...343
+gcloud run deploy final --image gcr.io/... --set-env-vars XXX=blah YYY=BLAH
