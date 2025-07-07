@@ -1,4 +1,4 @@
-# [Video Game Search](https://nharris-final-api-g5x3ma3ehq-uw.a.run.app)
+# Video Game Search
 
 This website was put together for a final project during Fall term at Portland State University, and was started the 28th of November 2023 and completed on the 6th of December 2023.
 
